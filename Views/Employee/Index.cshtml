@@ -1,0 +1,153 @@
+@model IEnumerable<ProjectManagement.Models.Employee>
+@{
+	ViewData["Title"] = "Index";
+}
+
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+<h2>Employee</h2>
+<p><a asp-action="Create"><button class="btn btn-primary">Create New</button></a></p>
+
+<table class="table table-striped" style="width:100%">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Lastname)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Firstname)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Middlename)
+			</th>
+			<th style="text-align:right"></th>
+		</tr>
+	</thead>
+	
+	<tbody>
+		@foreach (var item in Model) {
+			var viewTM = "#viewModal" + item.ID;
+			var viewMId = "viewModal" + item.ID;
+
+			var deleteTM = "#deleteModal" + item.ID;
+			var deleteMId = "deleteModal" + item.ID;
+
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Lastname)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Firstname)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Middlename)
+				</td>
+				<td>
+					<!-- <a asp-action="Details" asp-route-id="@item.ID"><button class="btn btn-primary" title="View Details"><i class="fas fa-file"></i></button></a> -->
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="@viewTM" title="View Details"><i class="fas fa-file"></i></button>
+					<a asp-action="Edit" asp-route-id="@item.ID"><button class="btn btn-success" title="Edit Employee"><i class="fas fa-edit"></i></button></a>
+					<button type="button" class="btn btn-danger" data-toggle="modal" data-target="@deleteTM" title="Delete Employee"><i class="fas fa-trash"></i></button>
+					<!-- <a asp-action="Delete" asp-route-id="@item.ID"><button class="btn btn-danger" title="Delete User"><i class="fas fa-trash"></i></button></a> -->
+					<!-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal"><i class="fas fa-trash"></i></button> -->
+
+					<!-- View Modal -->
+					<div class="modal fade" id="@viewMId" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5>Employee Details</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								</div>
+								<div class="modal-body">
+									<div>
+										<dl class="dl-horizontal">
+											<dt>
+												@Html.DisplayNameFor(modelItem => item.Firstname)
+											</dt>
+											<dd>
+												@Html.DisplayFor(modelItem => item.Firstname)
+											</dd>
+
+											<dt>
+												@Html.DisplayNameFor(modelItem => item.Lastname)
+											</dt>
+											<dd>
+												@Html.DisplayFor(modelItem => item.Lastname)
+											</dd>
+
+											<dt>
+												@Html.DisplayNameFor(modelItem => item.Middlename)
+											</dt>
+											<dd>
+												@Html.DisplayFor(modelItem => item.Middlename)
+											</dd>
+
+											<dt>
+												@Html.DisplayNameFor(modelItem => item.Gender)
+											</dt>
+											<dd>
+												@Html.DisplayFor(modelItem => item.Gender)
+											</dd>
+
+											<dt>
+												@Html.DisplayNameFor(modelItem => item.Department)
+											</dt>
+											<dd>
+												@Html.DisplayFor(modelItem => item.Department)
+											</dd>
+
+											<dt>
+												@Html.DisplayNameFor(modelItem => item.City)
+											</dt>
+											<dd>
+												@Html.DisplayFor(modelItem => item.City)
+											</dd>
+
+											<dt>
+												@Html.DisplayNameFor(modelItem => item.Username)
+											</dt>
+											<dd>
+												@Html.DisplayFor(modelItem => item.Username)
+											</dd>
+
+											<dt>
+												@Html.DisplayNameFor(modelItem => item.Password)
+											</dt>
+											<dd>
+												@Html.DisplayFor(modelItem => item.Password)
+											</dd>
+										</dl>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<a asp-action="Edit" asp-route-id="@item.ID" id="editBtn" class="btn btn-primary">Edit</a>
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Delete Modal -->
+					<div class="modal fade" id="@deleteMId" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								</div>
+								<div class="modal-body">
+									<p>Are you sure you want to delete this employee?</p>
+								</div>
+								<div class="modal-footer">
+									<a asp-action="Delete" asp-route-Id="@item.ID" id="deleteBtn" class="btn btn-danger">Delete</a>
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+
